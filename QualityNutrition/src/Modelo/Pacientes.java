@@ -5,8 +5,6 @@
  */
 package Modelo;
 
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -20,7 +18,6 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -41,8 +38,6 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Pacientes.findByNumeroTelefono", query = "SELECT p FROM Pacientes p WHERE p.numeroTelefono = :numeroTelefono"),
     @NamedQuery(name = "Pacientes.findByCorreoElectronico", query = "SELECT p FROM Pacientes p WHERE p.correoElectronico = :correoElectronico")})
 public class Pacientes implements Serializable {
-    @Transient
-    private PropertyChangeSupport changeSupport = new PropertyChangeSupport(this);
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -61,7 +56,7 @@ public class Pacientes implements Serializable {
     @Column(name = "CODIGOPOSTAL")
     private Integer codigopostal;
     @Column(name = "NUMERO_TELEFONO")
-    private Integer numeroTelefono;
+    private String numeroTelefono;
     @Column(name = "CORREO_ELECTRONICO")
     private String correoElectronico;
 
@@ -77,9 +72,7 @@ public class Pacientes implements Serializable {
     }
 
     public void setIdPaciente(Integer idPaciente) {
-        Integer oldIdPaciente = this.idPaciente;
         this.idPaciente = idPaciente;
-        changeSupport.firePropertyChange("idPaciente", oldIdPaciente, idPaciente);
     }
 
     public String getNombreCompleto() {
@@ -87,9 +80,7 @@ public class Pacientes implements Serializable {
     }
 
     public void setNombreCompleto(String nombreCompleto) {
-        String oldNombreCompleto = this.nombreCompleto;
         this.nombreCompleto = nombreCompleto;
-        changeSupport.firePropertyChange("nombreCompleto", oldNombreCompleto, nombreCompleto);
     }
 
     public String getGenero() {
@@ -97,9 +88,7 @@ public class Pacientes implements Serializable {
     }
 
     public void setGenero(String genero) {
-        String oldGenero = this.genero;
         this.genero = genero;
-        changeSupport.firePropertyChange("genero", oldGenero, genero);
     }
 
     public Date getFechaNacimiento() {
@@ -107,9 +96,7 @@ public class Pacientes implements Serializable {
     }
 
     public void setFechaNacimiento(Date fechaNacimiento) {
-        Date oldFechaNacimiento = this.fechaNacimiento;
         this.fechaNacimiento = fechaNacimiento;
-        changeSupport.firePropertyChange("fechaNacimiento", oldFechaNacimiento, fechaNacimiento);
     }
 
     public String getOcupacion() {
@@ -117,9 +104,7 @@ public class Pacientes implements Serializable {
     }
 
     public void setOcupacion(String ocupacion) {
-        String oldOcupacion = this.ocupacion;
         this.ocupacion = ocupacion;
-        changeSupport.firePropertyChange("ocupacion", oldOcupacion, ocupacion);
     }
 
     public Integer getCodigopostal() {
@@ -127,19 +112,15 @@ public class Pacientes implements Serializable {
     }
 
     public void setCodigopostal(Integer codigopostal) {
-        Integer oldCodigopostal = this.codigopostal;
         this.codigopostal = codigopostal;
-        changeSupport.firePropertyChange("codigopostal", oldCodigopostal, codigopostal);
     }
 
-    public Integer getNumeroTelefono() {
+    public String getNumeroTelefono() {
         return numeroTelefono;
     }
 
-    public void setNumeroTelefono(Integer numeroTelefono) {
-        Integer oldNumeroTelefono = this.numeroTelefono;
+    public void setNumeroTelefono(String numeroTelefono) {
         this.numeroTelefono = numeroTelefono;
-        changeSupport.firePropertyChange("numeroTelefono", oldNumeroTelefono, numeroTelefono);
     }
 
     public String getCorreoElectronico() {
@@ -147,9 +128,7 @@ public class Pacientes implements Serializable {
     }
 
     public void setCorreoElectronico(String correoElectronico) {
-        String oldCorreoElectronico = this.correoElectronico;
         this.correoElectronico = correoElectronico;
-        changeSupport.firePropertyChange("correoElectronico", oldCorreoElectronico, correoElectronico);
     }
 
     @Override
@@ -175,14 +154,6 @@ public class Pacientes implements Serializable {
     @Override
     public String toString() {
         return "Modelo.Pacientes[ idPaciente=" + idPaciente + " ]";
-    }
-
-    public void addPropertyChangeListener(PropertyChangeListener listener) {
-        changeSupport.addPropertyChangeListener(listener);
-    }
-
-    public void removePropertyChangeListener(PropertyChangeListener listener) {
-        changeSupport.removePropertyChangeListener(listener);
     }
     
 }

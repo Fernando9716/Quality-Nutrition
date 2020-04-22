@@ -5,24 +5,53 @@
  */
 package Vista;
 
+import java.awt.Color;
+import javax.persistence.EntityManagerFactory;
+import javax.swing.JPanel;
+import Control.*;
+import Control.exceptions.NonexistentEntityException;
+import Modelo.*;
+import javax.persistence.Persistence;
+import javax.persistence.Query;
+import javax.swing.JLabel;
 /**
  *
  * @author fernando
  */
 public class Principal extends javax.swing.JFrame {
+    EntityManagerFactory emf;
+    Pacientes paciente;
+    PacientesJpaController pe;
+    
+    int idPaciente;
 
     /**
      * Creates new form Principal
      */
-    public Principal() {
+    public Principal() {        
         initComponents();
-        agregar.setOpaque(false);
-        agregar.setContentAreaFilled(false);
-        agregar.setBorderPainted(false);
-
-
+         setLocationRelativeTo(null);
+        iniciadores();
     }
 
+    public void setIdPaciente(int idPaciente) {
+        this.idPaciente = idPaciente;
+    }
+
+    public int getIdPaciente() {
+        return idPaciente;
+    }
+ 
+
+    
+    
+    
+    public void conexionLocal(){
+        emf = Persistence.createEntityManagerFactory("QualityNutritionPU");
+        pe= new PacientesJpaController(emf);
+    }
+
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -42,6 +71,23 @@ public class Principal extends javax.swing.JFrame {
         alimentosList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : alimentosQuery.getResultList();
         alimentosQuery1 = java.beans.Beans.isDesignTime() ? null : QualityNutritionPUEntityManager.createQuery("SELECT a FROM Alimentos a");
         alimentosList1 = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : alimentosQuery1.getResultList();
+        pacientesQuery1 = java.beans.Beans.isDesignTime() ? null : QualityNutritionPUEntityManager.createQuery("SELECT p FROM Pacientes p");
+        pacientesList1 = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : pacientesQuery1.getResultList();
+        botonClientes = new javax.swing.JPanel();
+        jLabel8 = new javax.swing.JLabel();
+        indicador2 = new javax.swing.JPanel();
+        panelClientes = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
+        agregarClientes = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        tablaPacientes = new javax.swing.JTable();
+        analiticos = new javax.swing.JButton();
+        corporal = new javax.swing.JButton();
+        antro = new javax.swing.JButton();
         panelAlimentos = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
@@ -50,35 +96,184 @@ public class Principal extends javax.swing.JFrame {
         jButton7 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
-        panelClientes = new javax.swing.JPanel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
-        jTextField1 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jPanel1 = new javax.swing.JPanel();
+        panelDietas = new javax.swing.JPanel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jTable4 = new javax.swing.JTable();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        agregarDietas = new javax.swing.JButton();
         panelCitas = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        agregar = new javax.swing.JButton();
+        agregarCitas = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
-        jPanel6 = new javax.swing.JPanel();
+        botonAgenda = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
-        jPanel5 = new javax.swing.JPanel();
+        indicador1 = new javax.swing.JPanel();
+        botonDietas = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
-        jPanel7 = new javax.swing.JPanel();
-        jLabel8 = new javax.swing.JLabel();
+        indicador4 = new javax.swing.JPanel();
+        botonAlimentos = new javax.swing.JPanel();
+        jLabel12 = new javax.swing.JLabel();
+        indicador3 = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        botonClientes.setBackground(new java.awt.Color(0, 153, 153));
+        botonClientes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                botonClientesMouseClicked(evt);
+            }
+        });
+
+        jLabel8.setFont(new java.awt.Font("Segoe UI Black", 1, 12)); // NOI18N
+        jLabel8.setText("Clientes");
+
+        indicador2.setBackground(new java.awt.Color(0, 51, 153));
+        indicador2.setOpaque(false);
+
+        javax.swing.GroupLayout indicador2Layout = new javax.swing.GroupLayout(indicador2);
+        indicador2.setLayout(indicador2Layout);
+        indicador2Layout.setHorizontalGroup(
+            indicador2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 10, Short.MAX_VALUE)
+        );
+        indicador2Layout.setVerticalGroup(
+            indicador2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 40, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout botonClientesLayout = new javax.swing.GroupLayout(botonClientes);
+        botonClientes.setLayout(botonClientesLayout);
+        botonClientesLayout.setHorizontalGroup(
+            botonClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(botonClientesLayout.createSequentialGroup()
+                .addComponent(indicador2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(42, 42, 42)
+                .addComponent(jLabel8)
+                .addContainerGap(71, Short.MAX_VALUE))
+        );
+        botonClientesLayout.setVerticalGroup(
+            botonClientesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(botonClientesLayout.createSequentialGroup()
+                .addComponent(indicador2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+
+        getContentPane().add(botonClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 259, 180, 40));
+
+        panelClientes.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel6.setFont(new java.awt.Font("Segoe UI Black", 1, 12)); // NOI18N
+        jLabel6.setText("Consulta informacion sobre tus clietes");
+        panelClientes.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 420, 42));
+
+        jLabel7.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
+        jLabel7.setText("Tus clientes");
+        panelClientes.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 131, 42));
+
+        jTextField1.setText("Busca clientes por el nombre ");
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
+        panelClientes.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, 600, -1));
+
+        jButton1.setText("Eliminar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        panelClientes.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 610, 90, -1));
+
+        agregarClientes.setText("Agragar");
+        agregarClientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                agregarClientesActionPerformed(evt);
+            }
+        });
+        panelClientes.add(agregarClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 120, -1, -1));
+
+        jButton6.setText("Editar");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+        panelClientes.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 610, 90, -1));
+
+        org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, pacientesList1, tablaPacientes);
+        org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${idPaciente}"));
+        columnBinding.setColumnName("Id Paciente");
+        columnBinding.setColumnClass(Integer.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${nombreCompleto}"));
+        columnBinding.setColumnName("Nombre Completo");
+        columnBinding.setColumnClass(String.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${fechaNacimiento}"));
+        columnBinding.setColumnName("Fecha Nacimiento");
+        columnBinding.setColumnClass(java.util.Date.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${genero}"));
+        columnBinding.setColumnName("Genero");
+        columnBinding.setColumnClass(String.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${correoElectronico}"));
+        columnBinding.setColumnName("Correo Electronico");
+        columnBinding.setColumnClass(String.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${numeroTelefono}"));
+        columnBinding.setColumnName("Numero Telefono");
+        columnBinding.setColumnClass(String.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${codigopostal}"));
+        columnBinding.setColumnName("Codigopostal");
+        columnBinding.setColumnClass(Integer.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${ocupacion}"));
+        columnBinding.setColumnName("Ocupacion");
+        columnBinding.setColumnClass(String.class);
+        bindingGroup.addBinding(jTableBinding);
+        jTableBinding.bind();
+
+        tablaPacientes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaPacientesMouseClicked(evt);
+            }
+        });
+        jScrollPane5.setViewportView(tablaPacientes);
+
+        panelClientes.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, 820, 430));
+
+        analiticos.setText("Datos analiticos");
+        analiticos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                analiticosActionPerformed(evt);
+            }
+        });
+        panelClientes.add(analiticos, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 670, -1, -1));
+
+        corporal.setText("Composicion corporal");
+        corporal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                corporalActionPerformed(evt);
+            }
+        });
+        panelClientes.add(corporal, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 720, -1, -1));
+
+        antro.setText("Datos antropometricos");
+        antro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                antroActionPerformed(evt);
+            }
+        });
+        panelClientes.add(antro, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 670, -1, -1));
+
+        getContentPane().add(panelClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 0, 880, 800));
 
         panelAlimentos.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -90,8 +285,8 @@ public class Principal extends javax.swing.JFrame {
         jLabel10.setText("Crea, consulta y actualiza los alimentos que podrás usar en tus planes de alimentación");
         panelAlimentos.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 610, 42));
 
-        org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, alimentosList, jTable3);
-        org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${idAlimento}"));
+        jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, alimentosList, jTable3);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${idAlimento}"));
         columnBinding.setColumnName("Id Alimento");
         columnBinding.setColumnClass(Integer.class);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${nombreReceta}"));
@@ -135,88 +330,43 @@ public class Principal extends javax.swing.JFrame {
         jButton9.setText("Editar");
         panelAlimentos.add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 630, 80, -1));
 
-        getContentPane().add(panelAlimentos, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 0, 760, 690));
+        getContentPane().add(panelAlimentos, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 0, 880, 800));
 
-        panelClientes.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        panelDietas.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel6.setFont(new java.awt.Font("Segoe UI Black", 1, 12)); // NOI18N
-        jLabel6.setText("Consulta informacion sobre tus clietes");
-        panelClientes.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 420, 42));
+        jTable4.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane4.setViewportView(jTable4);
 
-        jLabel7.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
-        jLabel7.setText("Tus clientes");
-        panelClientes.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 131, 42));
+        panelDietas.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, 570, 430));
 
-        jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, pacientesList, jTable2);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${idPaciente}"));
-        columnBinding.setColumnName("Id Paciente");
-        columnBinding.setColumnClass(Integer.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${nombreCompleto}"));
-        columnBinding.setColumnName("Nombre Completo");
-        columnBinding.setColumnClass(String.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${numeroTelefono}"));
-        columnBinding.setColumnName("Numero Telefono");
-        columnBinding.setColumnClass(Integer.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${correoElectronico}"));
-        columnBinding.setColumnName("Correo Electronico");
-        columnBinding.setColumnClass(String.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${genero}"));
-        columnBinding.setColumnName("Genero");
-        columnBinding.setColumnClass(String.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${fechaNacimiento}"));
-        columnBinding.setColumnName("Fecha Nacimiento");
-        columnBinding.setColumnClass(java.util.Date.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${codigopostal}"));
-        columnBinding.setColumnName("Codigopostal");
-        columnBinding.setColumnClass(Integer.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${ocupacion}"));
-        columnBinding.setColumnName("Ocupacion");
-        columnBinding.setColumnClass(String.class);
-        bindingGroup.addBinding(jTableBinding);
-        jTableBinding.bind();
+        jLabel3.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
+        jLabel3.setText("Dietas");
+        panelDietas.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
 
-        jScrollPane2.setViewportView(jTable2);
+        jLabel11.setFont(new java.awt.Font("Segoe UI Black", 1, 12)); // NOI18N
+        jLabel11.setText("Busca, consulta y crea nuevas dietas");
+        panelDietas.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, -1, -1));
 
-        panelClientes.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, 680, 440));
-
-        jTextField1.setText("Busca clientes por el nombre ");
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        agregarDietas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/icons8-más-52.png"))); // NOI18N
+        agregarDietas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                agregarDietasActionPerformed(evt);
             }
         });
-        panelClientes.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, 600, -1));
+        panelDietas.add(agregarDietas, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 60, 60, 50));
 
-        jButton1.setText("Eliminar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        panelClientes.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 610, 90, -1));
+        getContentPane().add(panelDietas, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 0, 880, 800));
 
-        jButton5.setText("Agragar");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
-            }
-        });
-        panelClientes.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 110, -1, -1));
-
-        jButton6.setText("Editar");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
-            }
-        });
-        panelClientes.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 610, 90, -1));
-
-        getContentPane().add(panelClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 0, 760, 700));
-
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
-
-        panelCitas.setBackground(new java.awt.Color(153, 255, 255));
         panelCitas.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -254,14 +404,14 @@ public class Principal extends javax.swing.JFrame {
 
         panelCitas.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 144, 517, 437));
 
-        agregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/icons8-más-52.png"))); // NOI18N
-        agregar.setBorderPainted(false);
-        agregar.addActionListener(new java.awt.event.ActionListener() {
+        agregarCitas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/icons8-más-52.png"))); // NOI18N
+        agregarCitas.setBorderPainted(false);
+        agregarCitas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                agregarActionPerformed(evt);
+                agregarCitasActionPerformed(evt);
             }
         });
-        panelCitas.add(agregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(569, 144, 49, 47));
+        panelCitas.add(agregarCitas, new org.netbeans.lib.awtextra.AbsoluteConstraints(569, 144, 49, 47));
 
         jButton2.setText("Eliminar");
         panelCitas.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(227, 657, 91, -1));
@@ -272,88 +422,162 @@ public class Principal extends javax.swing.JFrame {
         jButton4.setText("Completada");
         panelCitas.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(425, 657, -1, -1));
 
-        getContentPane().add(panelCitas, new org.netbeans.lib.awtextra.AbsoluteConstraints(189, 0, 760, 695));
+        getContentPane().add(panelCitas, new org.netbeans.lib.awtextra.AbsoluteConstraints(189, 0, 880, 800));
 
-        jPanel6.setBackground(new java.awt.Color(102, 153, 255));
+        botonAgenda.setBackground(new java.awt.Color(0, 153, 153));
+        botonAgenda.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                botonAgendaMouseClicked(evt);
+            }
+        });
 
         jLabel5.setFont(new java.awt.Font("Segoe UI Black", 1, 12)); // NOI18N
         jLabel5.setText("Agenda");
 
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(50, 50, 50)
+        indicador1.setBackground(new java.awt.Color(0, 51, 153));
+
+        javax.swing.GroupLayout indicador1Layout = new javax.swing.GroupLayout(indicador1);
+        indicador1.setLayout(indicador1Layout);
+        indicador1Layout.setHorizontalGroup(
+            indicador1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 10, Short.MAX_VALUE)
+        );
+        indicador1Layout.setVerticalGroup(
+            indicador1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 40, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout botonAgendaLayout = new javax.swing.GroupLayout(botonAgenda);
+        botonAgenda.setLayout(botonAgendaLayout);
+        botonAgendaLayout.setHorizontalGroup(
+            botonAgendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(botonAgendaLayout.createSequentialGroup()
+                .addComponent(indicador1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(40, 40, 40)
                 .addComponent(jLabel5)
                 .addContainerGap(77, Short.MAX_VALUE))
         );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel5)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        botonAgendaLayout.setVerticalGroup(
+            botonAgendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(botonAgendaLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(indicador1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        getContentPane().add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 131, 180, -1));
+        getContentPane().add(botonAgenda, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 180, 40));
 
-        jPanel5.setBackground(new java.awt.Color(102, 153, 255));
+        botonDietas.setBackground(new java.awt.Color(0, 153, 153));
+        botonDietas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                botonDietasMouseClicked(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Segoe UI Black", 1, 12)); // NOI18N
-        jLabel4.setText("Alimentos");
+        jLabel4.setText("Dietas");
 
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(52, 52, 52)
-                .addComponent(jLabel4)
-                .addContainerGap(75, Short.MAX_VALUE))
+        indicador4.setBackground(new java.awt.Color(0, 51, 153));
+        indicador4.setOpaque(false);
+
+        javax.swing.GroupLayout indicador4Layout = new javax.swing.GroupLayout(indicador4);
+        indicador4.setLayout(indicador4Layout);
+        indicador4Layout.setHorizontalGroup(
+            indicador4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 10, Short.MAX_VALUE)
         );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel4)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        indicador4Layout.setVerticalGroup(
+            indicador4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 40, Short.MAX_VALUE)
         );
 
-        getContentPane().add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, -1, -1));
-
-        jPanel7.setBackground(new java.awt.Color(102, 153, 255));
-
-        jLabel8.setFont(new java.awt.Font("Segoe UI Black", 1, 12)); // NOI18N
-        jLabel8.setText("Clientes");
-
-        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
-        jPanel7.setLayout(jPanel7Layout);
-        jPanel7Layout.setHorizontalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGap(52, 52, 52)
-                .addComponent(jLabel8)
-                .addContainerGap(75, Short.MAX_VALUE))
+        javax.swing.GroupLayout botonDietasLayout = new javax.swing.GroupLayout(botonDietas);
+        botonDietas.setLayout(botonDietasLayout);
+        botonDietasLayout.setHorizontalGroup(
+            botonDietasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(botonDietasLayout.createSequentialGroup()
+                .addComponent(indicador4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(42, 42, 42)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(71, Short.MAX_VALUE))
         );
-        jPanel7Layout.setVerticalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel8)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        botonDietasLayout.setVerticalGroup(
+            botonDietasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(botonDietasLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(indicador4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        getContentPane().add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, -1, -1));
+        getContentPane().add(botonDietas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 360, 180, 40));
+
+        botonAlimentos.setBackground(new java.awt.Color(0, 153, 153));
+        botonAlimentos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                botonAlimentosMouseClicked(evt);
+            }
+        });
+
+        jLabel12.setFont(new java.awt.Font("Segoe UI Black", 1, 12)); // NOI18N
+        jLabel12.setText("Alimentos");
+
+        indicador3.setBackground(new java.awt.Color(0, 51, 153));
+        indicador3.setOpaque(false);
+
+        javax.swing.GroupLayout indicador3Layout = new javax.swing.GroupLayout(indicador3);
+        indicador3.setLayout(indicador3Layout);
+        indicador3Layout.setHorizontalGroup(
+            indicador3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 10, Short.MAX_VALUE)
+        );
+        indicador3Layout.setVerticalGroup(
+            indicador3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 40, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout botonAlimentosLayout = new javax.swing.GroupLayout(botonAlimentos);
+        botonAlimentos.setLayout(botonAlimentosLayout);
+        botonAlimentosLayout.setHorizontalGroup(
+            botonAlimentosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(botonAlimentosLayout.createSequentialGroup()
+                .addComponent(indicador3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(42, 42, 42)
+                .addComponent(jLabel12)
+                .addContainerGap(57, Short.MAX_VALUE))
+        );
+        botonAlimentosLayout.setVerticalGroup(
+            botonAlimentosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(botonAlimentosLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(indicador3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        getContentPane().add(botonAlimentos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 309, 180, 40));
+
+        jPanel1.setBackground(new java.awt.Color(51, 51, 51));
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 190, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 800, Short.MAX_VALUE)
+        );
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 190, 800));
 
         bindingGroup.bind();
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarActionPerformed
+    private void agregarCitasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarCitasActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_agregarActionPerformed
+    }//GEN-LAST:event_agregarCitasActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
@@ -363,9 +587,11 @@ public class Principal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton5ActionPerformed
+    private void agregarClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarClientesActionPerformed
+        pacientesRegistro p = new pacientesRegistro();
+        p.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_agregarClientesActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
@@ -379,6 +605,137 @@ public class Principal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton8ActionPerformed
 
+    private void agregarDietasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarDietasActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_agregarDietasActionPerformed
+
+    private void botonAgendaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonAgendaMouseClicked
+        OnClick(botonAgenda);
+        
+        LeaveClick(botonAlimentos);
+        LeaveClick(botonClientes);
+        LeaveClick(botonDietas);
+        
+        panelCitas.setVisible(true);
+        panelAlimentos.setVisible(false);
+        panelClientes.setVisible(false);
+        panelDietas.setVisible(false);
+        
+        indicador1.setOpaque(true);
+        indicador2.setOpaque(false);
+        indicador3.setOpaque(false);
+        indicador4.setOpaque(false);
+        
+        
+    }//GEN-LAST:event_botonAgendaMouseClicked
+
+    private void botonClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonClientesMouseClicked
+        OnClick(botonClientes);
+        
+        LeaveClick(botonAgenda);
+        LeaveClick(botonAlimentos);
+        LeaveClick(botonDietas);
+        
+        panelClientes.setVisible(true);
+        panelAlimentos.setVisible(false);
+        panelCitas.setVisible(false);
+        panelDietas.setVisible(false);
+        
+        indicador1.setOpaque(false);
+        indicador2.setOpaque(true);
+        indicador3.setOpaque(false);
+        indicador4.setOpaque(false);
+        
+    }//GEN-LAST:event_botonClientesMouseClicked
+
+    private void botonAlimentosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonAlimentosMouseClicked
+         OnClick(botonAlimentos);
+        
+        LeaveClick(botonAgenda);
+        LeaveClick(botonClientes);
+        LeaveClick(botonDietas);
+        
+        panelClientes.setVisible(false);
+        panelAlimentos.setVisible(true);
+        panelCitas.setVisible(false);
+        panelDietas.setVisible(false);
+        
+        indicador1.setOpaque(false);
+        indicador2.setOpaque(false);
+        indicador3.setOpaque(true);
+        indicador4.setOpaque(false);
+        
+    }//GEN-LAST:event_botonAlimentosMouseClicked
+
+    private void botonDietasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonDietasMouseClicked
+           OnClick(botonDietas);
+        
+        LeaveClick(botonAgenda);
+        LeaveClick(botonAlimentos);
+        LeaveClick(botonClientes);
+        
+        panelClientes.setVisible(false);
+        panelAlimentos.setVisible(false);
+        panelCitas.setVisible(false);
+        panelDietas.setVisible(true);
+        
+        indicador1.setOpaque(false);
+        indicador2.setOpaque(false);
+        indicador3.setOpaque(false);
+        indicador4.setOpaque(true);
+        
+    }//GEN-LAST:event_botonDietasMouseClicked
+
+    private void analiticosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_analiticosActionPerformed
+         Analiticos a = new Analiticos();
+        a.setVisible(true);
+        
+    }//GEN-LAST:event_analiticosActionPerformed
+
+    private void corporalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_corporalActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_corporalActionPerformed
+
+    private void antroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_antroActionPerformed
+        System.out.println(getIdPaciente());
+       
+    }//GEN-LAST:event_antroActionPerformed
+
+    private void tablaPacientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaPacientesMouseClicked
+       int i = tablaPacientes.getSelectedRow();
+       String id = tablaPacientes.getValueAt(i,0).toString();
+       setIdPaciente(Integer.parseInt(id));
+    }//GEN-LAST:event_tablaPacientesMouseClicked
+    
+    private void iniciadores(){
+        agregarCitas.setOpaque(false);
+        agregarCitas.setContentAreaFilled(false);
+        agregarCitas.setBorderPainted(false);
+        agregarDietas.setOpaque(false);
+        agregarDietas.setContentAreaFilled(false);
+        agregarDietas.setBorderPainted(false); 
+        
+        panelCitas.setVisible(true);
+        panelAlimentos.setVisible(false);
+        panelClientes.setVisible(false);
+        panelDietas.setVisible(false);
+        
+        
+    }
+
+ 
+    
+    public void ActualizarPacientes(){
+        this.setVisible(false);
+        Principal p = new Principal();
+        p.setVisible(true);
+    }
+    private void OnClick(JPanel panel){
+        panel.setBackground(new Color(232,201,232));
+    }
+    private void LeaveClick(JPanel panel){
+        panel.setBackground(new Color(0,153,153));
+    }
     /**
      * @param args the command line arguments
      */
@@ -416,25 +773,40 @@ public class Principal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.persistence.EntityManager QualityNutritionPUEntityManager;
-    private javax.swing.JButton agregar;
+    private javax.swing.JButton agregarCitas;
+    private javax.swing.JButton agregarClientes;
+    private javax.swing.JButton agregarDietas;
     private java.util.List<Modelo.Alimentos> alimentosList;
     private java.util.List<Modelo.Alimentos> alimentosList1;
     private javax.persistence.Query alimentosQuery;
     private javax.persistence.Query alimentosQuery1;
+    private javax.swing.JButton analiticos;
+    private javax.swing.JButton antro;
+    private javax.swing.JPanel botonAgenda;
+    private javax.swing.JPanel botonAlimentos;
+    private javax.swing.JPanel botonClientes;
+    private javax.swing.JPanel botonDietas;
     private java.util.List<Modelo.Cita> citaList;
     private javax.persistence.Query citaQuery;
+    private javax.swing.JButton corporal;
+    private javax.swing.JPanel indicador1;
+    private javax.swing.JPanel indicador2;
+    private javax.swing.JPanel indicador3;
+    private javax.swing.JPanel indicador4;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -443,21 +815,23 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
     private javax.swing.JTable jTable3;
+    private javax.swing.JTable jTable4;
     private javax.swing.JTextField jTextField1;
     private java.util.List<Modelo.Pacientes> pacientesList;
+    private java.util.List<Modelo.Pacientes> pacientesList1;
     private javax.persistence.Query pacientesQuery;
+    private javax.persistence.Query pacientesQuery1;
     private javax.swing.JPanel panelAlimentos;
     private javax.swing.JPanel panelCitas;
     private javax.swing.JPanel panelClientes;
+    private javax.swing.JPanel panelDietas;
+    private javax.swing.JTable tablaPacientes;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
 }

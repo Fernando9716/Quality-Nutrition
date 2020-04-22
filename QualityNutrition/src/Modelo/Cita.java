@@ -5,8 +5,6 @@
  */
 package Modelo;
 
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -20,7 +18,6 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -38,8 +35,6 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Cita.findByHora", query = "SELECT c FROM Cita c WHERE c.hora = :hora"),
     @NamedQuery(name = "Cita.findByServicio", query = "SELECT c FROM Cita c WHERE c.servicio = :servicio")})
 public class Cita implements Serializable {
-    @Transient
-    private PropertyChangeSupport changeSupport = new PropertyChangeSupport(this);
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -68,9 +63,7 @@ public class Cita implements Serializable {
     }
 
     public void setFolioCita(Integer folioCita) {
-        Integer oldFolioCita = this.folioCita;
         this.folioCita = folioCita;
-        changeSupport.firePropertyChange("folioCita", oldFolioCita, folioCita);
     }
 
     public Date getFecha() {
@@ -78,9 +71,7 @@ public class Cita implements Serializable {
     }
 
     public void setFecha(Date fecha) {
-        Date oldFecha = this.fecha;
         this.fecha = fecha;
-        changeSupport.firePropertyChange("fecha", oldFecha, fecha);
     }
 
     public String getNombrePaciente() {
@@ -88,9 +79,7 @@ public class Cita implements Serializable {
     }
 
     public void setNombrePaciente(String nombrePaciente) {
-        String oldNombrePaciente = this.nombrePaciente;
         this.nombrePaciente = nombrePaciente;
-        changeSupport.firePropertyChange("nombrePaciente", oldNombrePaciente, nombrePaciente);
     }
 
     public String getHora() {
@@ -98,9 +87,7 @@ public class Cita implements Serializable {
     }
 
     public void setHora(String hora) {
-        String oldHora = this.hora;
         this.hora = hora;
-        changeSupport.firePropertyChange("hora", oldHora, hora);
     }
 
     public String getServicio() {
@@ -108,9 +95,7 @@ public class Cita implements Serializable {
     }
 
     public void setServicio(String servicio) {
-        String oldServicio = this.servicio;
         this.servicio = servicio;
-        changeSupport.firePropertyChange("servicio", oldServicio, servicio);
     }
 
     @Override
@@ -136,14 +121,6 @@ public class Cita implements Serializable {
     @Override
     public String toString() {
         return "Modelo.Cita[ folioCita=" + folioCita + " ]";
-    }
-
-    public void addPropertyChangeListener(PropertyChangeListener listener) {
-        changeSupport.addPropertyChangeListener(listener);
-    }
-
-    public void removePropertyChangeListener(PropertyChangeListener listener) {
-        changeSupport.removePropertyChangeListener(listener);
     }
     
 }

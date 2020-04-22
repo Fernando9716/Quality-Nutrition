@@ -5,8 +5,6 @@
  */
 package Modelo;
 
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -17,7 +15,6 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -78,8 +75,6 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Alimentos.findByGrasasPoliinsaturadas", query = "SELECT a FROM Alimentos a WHERE a.grasasPoliinsaturadas = :grasasPoliinsaturadas"),
     @NamedQuery(name = "Alimentos.findByCloruro", query = "SELECT a FROM Alimentos a WHERE a.cloruro = :cloruro")})
 public class Alimentos implements Serializable {
-    @Transient
-    private PropertyChangeSupport changeSupport = new PropertyChangeSupport(this);
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -194,9 +189,7 @@ public class Alimentos implements Serializable {
     }
 
     public void setIdAlimento(Integer idAlimento) {
-        Integer oldIdAlimento = this.idAlimento;
         this.idAlimento = idAlimento;
-        changeSupport.firePropertyChange("idAlimento", oldIdAlimento, idAlimento);
     }
 
     public String getNombreReceta() {
@@ -204,9 +197,7 @@ public class Alimentos implements Serializable {
     }
 
     public void setNombreReceta(String nombreReceta) {
-        String oldNombreReceta = this.nombreReceta;
         this.nombreReceta = nombreReceta;
-        changeSupport.firePropertyChange("nombreReceta", oldNombreReceta, nombreReceta);
     }
 
     public String getDescripcion() {
@@ -214,9 +205,7 @@ public class Alimentos implements Serializable {
     }
 
     public void setDescripcion(String descripcion) {
-        String oldDescripcion = this.descripcion;
         this.descripcion = descripcion;
-        changeSupport.firePropertyChange("descripcion", oldDescripcion, descripcion);
     }
 
     public Integer getTiempoPreparacion() {
@@ -224,9 +213,7 @@ public class Alimentos implements Serializable {
     }
 
     public void setTiempoPreparacion(Integer tiempoPreparacion) {
-        Integer oldTiempoPreparacion = this.tiempoPreparacion;
         this.tiempoPreparacion = tiempoPreparacion;
-        changeSupport.firePropertyChange("tiempoPreparacion", oldTiempoPreparacion, tiempoPreparacion);
     }
 
     public Float getPesoPorcion() {
@@ -234,9 +221,7 @@ public class Alimentos implements Serializable {
     }
 
     public void setPesoPorcion(Float pesoPorcion) {
-        Float oldPesoPorcion = this.pesoPorcion;
         this.pesoPorcion = pesoPorcion;
-        changeSupport.firePropertyChange("pesoPorcion", oldPesoPorcion, pesoPorcion);
     }
 
     public Float getTotalMacronutrientes() {
@@ -244,9 +229,7 @@ public class Alimentos implements Serializable {
     }
 
     public void setTotalMacronutrientes(Float totalMacronutrientes) {
-        Float oldTotalMacronutrientes = this.totalMacronutrientes;
         this.totalMacronutrientes = totalMacronutrientes;
-        changeSupport.firePropertyChange("totalMacronutrientes", oldTotalMacronutrientes, totalMacronutrientes);
     }
 
     public String getModoPreparacion() {
@@ -254,9 +237,7 @@ public class Alimentos implements Serializable {
     }
 
     public void setModoPreparacion(String modoPreparacion) {
-        String oldModoPreparacion = this.modoPreparacion;
         this.modoPreparacion = modoPreparacion;
-        changeSupport.firePropertyChange("modoPreparacion", oldModoPreparacion, modoPreparacion);
     }
 
     public Float getEnergia() {
@@ -264,9 +245,7 @@ public class Alimentos implements Serializable {
     }
 
     public void setEnergia(Float energia) {
-        Float oldEnergia = this.energia;
         this.energia = energia;
-        changeSupport.firePropertyChange("energia", oldEnergia, energia);
     }
 
     public Float getGrasa() {
@@ -274,9 +253,7 @@ public class Alimentos implements Serializable {
     }
 
     public void setGrasa(Float grasa) {
-        Float oldGrasa = this.grasa;
         this.grasa = grasa;
-        changeSupport.firePropertyChange("grasa", oldGrasa, grasa);
     }
 
     public Float getHCarbono() {
@@ -284,9 +261,7 @@ public class Alimentos implements Serializable {
     }
 
     public void setHCarbono(Float hCarbono) {
-        Float oldHCarbono = this.hCarbono;
         this.hCarbono = hCarbono;
-        changeSupport.firePropertyChange("HCarbono", oldHCarbono, hCarbono);
     }
 
     public Float getProteinas() {
@@ -294,9 +269,7 @@ public class Alimentos implements Serializable {
     }
 
     public void setProteinas(Float proteinas) {
-        Float oldProteinas = this.proteinas;
         this.proteinas = proteinas;
-        changeSupport.firePropertyChange("proteinas", oldProteinas, proteinas);
     }
 
     public Float getCloesterol() {
@@ -304,9 +277,7 @@ public class Alimentos implements Serializable {
     }
 
     public void setCloesterol(Float cloesterol) {
-        Float oldCloesterol = this.cloesterol;
         this.cloesterol = cloesterol;
-        changeSupport.firePropertyChange("cloesterol", oldCloesterol, cloesterol);
     }
 
     public Float getFibraAlimentaria() {
@@ -314,9 +285,7 @@ public class Alimentos implements Serializable {
     }
 
     public void setFibraAlimentaria(Float fibraAlimentaria) {
-        Float oldFibraAlimentaria = this.fibraAlimentaria;
         this.fibraAlimentaria = fibraAlimentaria;
-        changeSupport.firePropertyChange("fibraAlimentaria", oldFibraAlimentaria, fibraAlimentaria);
     }
 
     public Float getSodio() {
@@ -324,9 +293,7 @@ public class Alimentos implements Serializable {
     }
 
     public void setSodio(Float sodio) {
-        Float oldSodio = this.sodio;
         this.sodio = sodio;
-        changeSupport.firePropertyChange("sodio", oldSodio, sodio);
     }
 
     public Float getAgua() {
@@ -334,9 +301,7 @@ public class Alimentos implements Serializable {
     }
 
     public void setAgua(Float agua) {
-        Float oldAgua = this.agua;
         this.agua = agua;
-        changeSupport.firePropertyChange("agua", oldAgua, agua);
     }
 
     public Float getVitaminaA() {
@@ -344,9 +309,7 @@ public class Alimentos implements Serializable {
     }
 
     public void setVitaminaA(Float vitaminaA) {
-        Float oldVitaminaA = this.vitaminaA;
         this.vitaminaA = vitaminaA;
-        changeSupport.firePropertyChange("vitaminaA", oldVitaminaA, vitaminaA);
     }
 
     public Float getVitaminaB6() {
@@ -354,9 +317,7 @@ public class Alimentos implements Serializable {
     }
 
     public void setVitaminaB6(Float vitaminaB6) {
-        Float oldVitaminaB6 = this.vitaminaB6;
         this.vitaminaB6 = vitaminaB6;
-        changeSupport.firePropertyChange("vitaminaB6", oldVitaminaB6, vitaminaB6);
     }
 
     public Float getVitaminaB12() {
@@ -364,9 +325,7 @@ public class Alimentos implements Serializable {
     }
 
     public void setVitaminaB12(Float vitaminaB12) {
-        Float oldVitaminaB12 = this.vitaminaB12;
         this.vitaminaB12 = vitaminaB12;
-        changeSupport.firePropertyChange("vitaminaB12", oldVitaminaB12, vitaminaB12);
     }
 
     public Float getVitaminaC() {
@@ -374,9 +333,7 @@ public class Alimentos implements Serializable {
     }
 
     public void setVitaminaC(Float vitaminaC) {
-        Float oldVitaminaC = this.vitaminaC;
         this.vitaminaC = vitaminaC;
-        changeSupport.firePropertyChange("vitaminaC", oldVitaminaC, vitaminaC);
     }
 
     public Float getVitaminaD() {
@@ -384,9 +341,7 @@ public class Alimentos implements Serializable {
     }
 
     public void setVitaminaD(Float vitaminaD) {
-        Float oldVitaminaD = this.vitaminaD;
         this.vitaminaD = vitaminaD;
-        changeSupport.firePropertyChange("vitaminaD", oldVitaminaD, vitaminaD);
     }
 
     public Float getVitaminaE() {
@@ -394,9 +349,7 @@ public class Alimentos implements Serializable {
     }
 
     public void setVitaminaE(Float vitaminaE) {
-        Float oldVitaminaE = this.vitaminaE;
         this.vitaminaE = vitaminaE;
-        changeSupport.firePropertyChange("vitaminaE", oldVitaminaE, vitaminaE);
     }
 
     public Float getVitaminaK() {
@@ -404,9 +357,7 @@ public class Alimentos implements Serializable {
     }
 
     public void setVitaminaK(Float vitaminaK) {
-        Float oldVitaminaK = this.vitaminaK;
         this.vitaminaK = vitaminaK;
-        changeSupport.firePropertyChange("vitaminaK", oldVitaminaK, vitaminaK);
     }
 
     public Float getAlmidon() {
@@ -414,9 +365,7 @@ public class Alimentos implements Serializable {
     }
 
     public void setAlmidon(Float almidon) {
-        Float oldAlmidon = this.almidon;
         this.almidon = almidon;
-        changeSupport.firePropertyChange("almidon", oldAlmidon, almidon);
     }
 
     public Float getLactosa() {
@@ -424,9 +373,7 @@ public class Alimentos implements Serializable {
     }
 
     public void setLactosa(Float lactosa) {
-        Float oldLactosa = this.lactosa;
         this.lactosa = lactosa;
-        changeSupport.firePropertyChange("lactosa", oldLactosa, lactosa);
     }
 
     public Float getAlcohol() {
@@ -434,9 +381,7 @@ public class Alimentos implements Serializable {
     }
 
     public void setAlcohol(Float alcohol) {
-        Float oldAlcohol = this.alcohol;
         this.alcohol = alcohol;
-        changeSupport.firePropertyChange("alcohol", oldAlcohol, alcohol);
     }
 
     public Float getCafeina() {
@@ -444,9 +389,7 @@ public class Alimentos implements Serializable {
     }
 
     public void setCafeina(Float cafeina) {
-        Float oldCafeina = this.cafeina;
         this.cafeina = cafeina;
-        changeSupport.firePropertyChange("cafeina", oldCafeina, cafeina);
     }
 
     public Float getAzucares() {
@@ -454,9 +397,7 @@ public class Alimentos implements Serializable {
     }
 
     public void setAzucares(Float azucares) {
-        Float oldAzucares = this.azucares;
         this.azucares = azucares;
-        changeSupport.firePropertyChange("azucares", oldAzucares, azucares);
     }
 
     public Float getCalcio() {
@@ -464,9 +405,7 @@ public class Alimentos implements Serializable {
     }
 
     public void setCalcio(Float calcio) {
-        Float oldCalcio = this.calcio;
         this.calcio = calcio;
-        changeSupport.firePropertyChange("calcio", oldCalcio, calcio);
     }
 
     public Float getHierro() {
@@ -474,9 +413,7 @@ public class Alimentos implements Serializable {
     }
 
     public void setHierro(Float hierro) {
-        Float oldHierro = this.hierro;
         this.hierro = hierro;
-        changeSupport.firePropertyChange("hierro", oldHierro, hierro);
     }
 
     public Float getMagnesio() {
@@ -484,9 +421,7 @@ public class Alimentos implements Serializable {
     }
 
     public void setMagnesio(Float magnesio) {
-        Float oldMagnesio = this.magnesio;
         this.magnesio = magnesio;
-        changeSupport.firePropertyChange("magnesio", oldMagnesio, magnesio);
     }
 
     public Float getFosforo() {
@@ -494,9 +429,7 @@ public class Alimentos implements Serializable {
     }
 
     public void setFosforo(Float fosforo) {
-        Float oldFosforo = this.fosforo;
         this.fosforo = fosforo;
-        changeSupport.firePropertyChange("fosforo", oldFosforo, fosforo);
     }
 
     public Float getPotasio() {
@@ -504,9 +437,7 @@ public class Alimentos implements Serializable {
     }
 
     public void setPotasio(Float potasio) {
-        Float oldPotasio = this.potasio;
         this.potasio = potasio;
-        changeSupport.firePropertyChange("potasio", oldPotasio, potasio);
     }
 
     public Float getZinc() {
@@ -514,9 +445,7 @@ public class Alimentos implements Serializable {
     }
 
     public void setZinc(Float zinc) {
-        Float oldZinc = this.zinc;
         this.zinc = zinc;
-        changeSupport.firePropertyChange("zinc", oldZinc, zinc);
     }
 
     public Float getCobre() {
@@ -524,9 +453,7 @@ public class Alimentos implements Serializable {
     }
 
     public void setCobre(Float cobre) {
-        Float oldCobre = this.cobre;
         this.cobre = cobre;
-        changeSupport.firePropertyChange("cobre", oldCobre, cobre);
     }
 
     public Float getFluor() {
@@ -534,9 +461,7 @@ public class Alimentos implements Serializable {
     }
 
     public void setFluor(Float fluor) {
-        Float oldFluor = this.fluor;
         this.fluor = fluor;
-        changeSupport.firePropertyChange("fluor", oldFluor, fluor);
     }
 
     public Float getMagneso() {
@@ -544,9 +469,7 @@ public class Alimentos implements Serializable {
     }
 
     public void setMagneso(Float magneso) {
-        Float oldMagneso = this.magneso;
         this.magneso = magneso;
-        changeSupport.firePropertyChange("magneso", oldMagneso, magneso);
     }
 
     public Float getSelenio() {
@@ -554,9 +477,7 @@ public class Alimentos implements Serializable {
     }
 
     public void setSelenio(Float selenio) {
-        Float oldSelenio = this.selenio;
         this.selenio = selenio;
-        changeSupport.firePropertyChange("selenio", oldSelenio, selenio);
     }
 
     public Float getTiamina() {
@@ -564,9 +485,7 @@ public class Alimentos implements Serializable {
     }
 
     public void setTiamina(Float tiamina) {
-        Float oldTiamina = this.tiamina;
         this.tiamina = tiamina;
-        changeSupport.firePropertyChange("tiamina", oldTiamina, tiamina);
     }
 
     public Float getRiboflavina() {
@@ -574,9 +493,7 @@ public class Alimentos implements Serializable {
     }
 
     public void setRiboflavina(Float riboflavina) {
-        Float oldRiboflavina = this.riboflavina;
         this.riboflavina = riboflavina;
-        changeSupport.firePropertyChange("riboflavina", oldRiboflavina, riboflavina);
     }
 
     public Float getNiacina() {
@@ -584,9 +501,7 @@ public class Alimentos implements Serializable {
     }
 
     public void setNiacina(Float niacina) {
-        Float oldNiacina = this.niacina;
         this.niacina = niacina;
-        changeSupport.firePropertyChange("niacina", oldNiacina, niacina);
     }
 
     public Float getAcidoPantotenico() {
@@ -594,9 +509,7 @@ public class Alimentos implements Serializable {
     }
 
     public void setAcidoPantotenico(Float acidoPantotenico) {
-        Float oldAcidoPantotenico = this.acidoPantotenico;
         this.acidoPantotenico = acidoPantotenico;
-        changeSupport.firePropertyChange("acidoPantotenico", oldAcidoPantotenico, acidoPantotenico);
     }
 
     public Float getFlotato() {
@@ -604,9 +517,7 @@ public class Alimentos implements Serializable {
     }
 
     public void setFlotato(Float flotato) {
-        Float oldFlotato = this.flotato;
         this.flotato = flotato;
-        changeSupport.firePropertyChange("flotato", oldFlotato, flotato);
     }
 
     public Float getAcidoFolico() {
@@ -614,9 +525,7 @@ public class Alimentos implements Serializable {
     }
 
     public void setAcidoFolico(Float acidoFolico) {
-        Float oldAcidoFolico = this.acidoFolico;
         this.acidoFolico = acidoFolico;
-        changeSupport.firePropertyChange("acidoFolico", oldAcidoFolico, acidoFolico);
     }
 
     public Float getGrasasTrans() {
@@ -624,9 +533,7 @@ public class Alimentos implements Serializable {
     }
 
     public void setGrasasTrans(Float grasasTrans) {
-        Float oldGrasasTrans = this.grasasTrans;
         this.grasasTrans = grasasTrans;
-        changeSupport.firePropertyChange("grasasTrans", oldGrasasTrans, grasasTrans);
     }
 
     public Float getGrasasSaturadas() {
@@ -634,9 +541,7 @@ public class Alimentos implements Serializable {
     }
 
     public void setGrasasSaturadas(Float grasasSaturadas) {
-        Float oldGrasasSaturadas = this.grasasSaturadas;
         this.grasasSaturadas = grasasSaturadas;
-        changeSupport.firePropertyChange("grasasSaturadas", oldGrasasSaturadas, grasasSaturadas);
     }
 
     public Float getGrasasMonoinsturadas() {
@@ -644,9 +549,7 @@ public class Alimentos implements Serializable {
     }
 
     public void setGrasasMonoinsturadas(Float grasasMonoinsturadas) {
-        Float oldGrasasMonoinsturadas = this.grasasMonoinsturadas;
         this.grasasMonoinsturadas = grasasMonoinsturadas;
-        changeSupport.firePropertyChange("grasasMonoinsturadas", oldGrasasMonoinsturadas, grasasMonoinsturadas);
     }
 
     public Float getGrasasPoliinsaturadas() {
@@ -654,9 +557,7 @@ public class Alimentos implements Serializable {
     }
 
     public void setGrasasPoliinsaturadas(Float grasasPoliinsaturadas) {
-        Float oldGrasasPoliinsaturadas = this.grasasPoliinsaturadas;
         this.grasasPoliinsaturadas = grasasPoliinsaturadas;
-        changeSupport.firePropertyChange("grasasPoliinsaturadas", oldGrasasPoliinsaturadas, grasasPoliinsaturadas);
     }
 
     public Float getCloruro() {
@@ -664,9 +565,7 @@ public class Alimentos implements Serializable {
     }
 
     public void setCloruro(Float cloruro) {
-        Float oldCloruro = this.cloruro;
         this.cloruro = cloruro;
-        changeSupport.firePropertyChange("cloruro", oldCloruro, cloruro);
     }
 
     @Override
@@ -692,14 +591,6 @@ public class Alimentos implements Serializable {
     @Override
     public String toString() {
         return "Modelo.Alimentos[ idAlimento=" + idAlimento + " ]";
-    }
-
-    public void addPropertyChangeListener(PropertyChangeListener listener) {
-        changeSupport.addPropertyChangeListener(listener);
-    }
-
-    public void removePropertyChangeListener(PropertyChangeListener listener) {
-        changeSupport.removePropertyChangeListener(listener);
     }
     
 }
